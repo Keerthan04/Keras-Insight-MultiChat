@@ -34,7 +34,8 @@ def initialize_vector_store():
     vector_store = PineconeVectorStore(index=pinecone_manager.index, embedding=embeddings)
     retriever = vector_store.as_retriever(search_kwargs={"k": 3})
     genai.configure(api_key=gemini_api_key)
-    model = genai.GenerativeModel("gemini-pro")
+    tuned_model = genai.get_tuned_model('tunedModels/finetuninggemmafordl1-xxcubsl6ftaf')
+    model = genai.GenerativeModel(model_name=tuned_model.name)
     client = Groq(
         api_key=groq_api_key
     )
